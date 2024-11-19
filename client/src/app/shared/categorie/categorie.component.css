@@ -1,0 +1,68 @@
+@import url("https://fonts.googleapis.com/css2?family=Oswald:wght@200;600&display=swap");
+
+
+section {
+  width: 90%;
+  max-width: 1200px;
+  margin: 0 auto;
+  font-family: "Oswald", sans-serif;
+}
+
+.row {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  gap: 20px;
+  align-items: center;
+}
+
+.card {
+  position: relative;
+  height: 400px;
+  width: 100%;
+  margin: 10px 0;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.cover {
+  position: relative;
+  height: 100%;
+  width: 100%;
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between ;
+  border: 1px solid rgba(255,255,255,.5);
+  box-sizing: border-box;
+}
+
+.cover.item-a {
+  background-image: url("https://images.unsplash.com/photo-1520412099551-62b6bafeb5bb?auto=format&fit=crop&w=600&q=80");
+}
+
+.cover.item-b {
+  background-image: url("https://images.unsplash.com/photo-1497250681960-ef046c08a56e?auto=format&fit=crop&w=600&q=80");
+}
+
+.cover.item-c {
+  background-image: url("https://images.unsplash.com/photo-1525945518069-b924046d1385?auto=format&fit=crop&w=600&q=80");
+}
+
+.cover.item-d {
+  background-image: url("https://th.bing.com/th/id/R.01f6ea3f1c3d52a8c8272a3fe9afd183?rik=9J8iBe93i2mZ6A&pid=ImgRaw&r=0");
+}
+
+.cover.item-e {
+  background-image: url("https://th.bing.com/th/id/R.7ad16bd5f4626d6c1dee388f821391d2?rik=l5pjUXZ2r2w%2bvA&pid=ImgRaw&r=0");
+}
+
+h1 {
+  font-weight: 600;
+  color: white;
+  font-size: 2em;
+  margin: 10px;
+}
+
+
+

@@ -1,0 +1,22 @@
+<div class="slider-container" (mouseenter)="stopAutoSlide()" (mouseleave)="startAutoSlide()">
+  <div class="slider-content">
+    <img [src]="newsItems[currentIndex].imageUrl" [alt]="newsItems[currentIndex].title" class="slider-image">
+
+    <div class="slider-info">
+      <h2>{{newsItems[currentIndex].title}}</h2>
+      <p>{{newsItems[currentIndex].description}}</p>
+    </div>
+
+    <button class="nav-button prev" (click)="previousSlide()">❮</button>
+    <button class="nav-button next" (click)="nextSlide()">❯</button>
+
+    <div class="dots-container">
+      <span
+        *ngFor="let item of newsItems; let i = index"
+        class="dot"
+        [class.active]="i === currentIndex"
+        (click)="goToSlide(i)">
+      </span>
+    </div>
+  </div>
+</div>

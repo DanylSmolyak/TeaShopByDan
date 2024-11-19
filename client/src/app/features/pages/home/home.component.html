@@ -1,0 +1,20 @@
+<app-nav-bar></app-nav-bar>
+<app-categorie></app-categorie>
+
+<div class="product-list-wrapper">
+
+  <app-news></app-news>
+
+  <h2 class="section-title">МОЖЕТ ЗАИНТЕРЕСОВАТЬ</h2>
+
+  <app-product-list [shopParams]="{pageSize: 5 }"></app-product-list>
+
+  <h2 class="section-title">По Рейтингу</h2>
+  <app-product-list [shopParams]="{pageSize: 5, sort: 'AverageRatingDesc'}"></app-product-list>
+  <!--<h2 class="section-title">Прочее</h2>
+  <app-product-list [shopParams]="{pageSize: 5, categoryId: 2 }"></app-product-list>-->
+
+</div>
+
+<app-footer></app-footer>
+

@@ -1,0 +1,113 @@
+<app-nav-bar></app-nav-bar>
+<div class="container">
+  <div class="cart-container">
+  <div class="left-container">
+    <div class="order-summary">
+      <div class="summary-item">
+        <span>Количество товаров:</span>
+        <span>{{ getTotalItems() }}</span>
+      </div>
+      <div class="summary-item">
+        <span>Общая стоимость:</span>
+        <span>{{ getTotalPrice() }} ₴</span>
+      </div>
+      <div class="actions">
+        <button  class="save-btn">Сохранить изменения</button>
+        <button class="order-btn" (click)="showOrderForm()">Оформить заказ</button>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="right-container">
+    <div class="shopping-cart-wrapper" *ngFor="let item of cartItems; let i = index">
+      <p class="item-number">{{ i + 1 }}</p>
+      <img class="product-image" [src]="products[item.productId]?.photos![0].image" alt="Product Image">
+      <div class="product-info">
+        <p class="product-name">{{ products[item.productId]?.name }}</p>
+        <p class="product-description">{{ products[item.productId]?.description }}</p>
+      </div>
+      <div class="quantity-control">
+        <button (click)="decrementQuantity(item)">-</button>
+        <input type="text" [value]="item.quantity" readonly>
+        <button (click)="incrementQuantity(item)">+</button>
+      </div>
+      <p class="product-unit-price">{{ item.unitPrice }} ₴</p>
+      <p class="product-total-price">{{ item.totalPrice }} ₴</p>
+      <button class="delete-btn" (click)="removeItem(item)">
+        <span>×</span>
+      </button>
+    </div>
+  </div>
+</div>
+</div>
+
+
+<div class="order-section" *ngIf="isOrderFormVisible">
+  <div class="order-details">
+    <h2>Информация о заказе</h2>
+    <div class="order-info">
+      <div class="info-item">
+        <span>Итого товаров:</span>
+        <span>{{ getTotalItems() }}</span>
+      </div>
+      <div class="info-item">
+        <span>Общая сумма:</span>
+        <span>{{ getTotalPrice() }} ₴</span>
+      </div>
+    </div>
+
+    <div class="more-order-info" *ngFor="let item of cartItems">
+      <div class="info-item">
+        <span class="product-name" >{{products[item.productId]?.name}}</span>
+        <span class="product-description" >{{products[item.productId]?.description }}</span>
+      </div>
+      <div class="info-item">
+        <span>Количество:</span>
+        <span>{{ item.quantity }} </span>
+      </div>
+    </div>
+
+
+  <div class="order-form">
+    <h2>Оформление заказа</h2>
+    <form [formGroup]="orderForm" (ngSubmit)="submitOrder()">
+      <div class="form-group">
+        <label for="shippingAddress">Адрес доставки:</label>
+        <input id="shippingAddress"
+               type="text"
+               formControlName="shippingAddress"
+               [class.is-invalid]="orderForm.get('shippingAddress')?.invalid &&
+                                     orderForm.get('shippingAddress')?.touched">
+      </div>
+
+      <div class="form-group">
+        <label for="phoneNumber">Номер телефона:</label>
+        <input id="phoneNumber"
+               type="tel"
+               formControlName="phoneNumber"
+               [class.is-invalid]="orderForm.get('phoneNumber')?.invalid &&
+                                     orderForm.get('phoneNumber')?.touched">
+      </div>
+
+      <div class="form-group">
+        <label for="email">Email:</label>
+        <input id="email"
+               type="email"
+               formControlName="email"
+               [class.is-invalid]="orderForm.get('email')?.invalid &&
+                                     orderForm.get('email')?.touched">
+      </div>
+
+      <div class="form-actions">
+        <button type="submit" class="submit-btn" [disabled]="!orderForm.valid">
+          Подтвердить заказ
+        </button>
+        <button type="button" class="cancel-btn" (click)="hideOrderForm()">
+          Отмена
+        </button>
+      </div>
+    </form>
+  </div>
+  </div>
+</div>

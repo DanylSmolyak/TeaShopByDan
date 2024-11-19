@@ -1,0 +1,29 @@
+<body>
+<div class="container">
+  <form [formGroup]="form" (submit)="onSubmit()">
+    <div class="top"></div>
+    <div class="bottom"></div>
+    <div class="center">
+      <h2 class="text-white">Log in</h2>
+      <input
+        type="email"
+        formControlName="email"
+        placeholder="Email"
+        [class.is-invalid]="form.get('email')?.invalid && form.get('email')?.touched"
+      >
+
+      <input
+        type="password"
+        formControlName="password"
+        placeholder="Пароль"
+        [class.is-invalid]="form.get('password')?.invalid && form.get('password')?.touched"
+      >
+
+      <div class="error" *ngIf="errorMessage">{{ errorMessage }}</div>
+
+      <button class="w-100" type="submit">Submit</button>
+      <h2>&nbsp;</h2>
+    </div>
+  </form>
+</div>
+</body>

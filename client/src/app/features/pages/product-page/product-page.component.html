@@ -1,0 +1,88 @@
+<app-nav-bar></app-nav-bar>
+<div class="product-container">
+  <div class="product-content">
+    <div class="image-carousel">
+      <div class="carousel-inner" [style.transform]="'translateX(-' + (currentPhotoIndex * 100) + '%)'">
+        <div class="carousel-item" *ngFor="let photo of product?.photos">
+          <img [src]="photo.image" [alt]="product?.name">
+        </div>
+      </div>
+      <div class="carousel-nav">
+        <div
+          *ngFor="let photo of product?.photos; let i = index"
+          class="carousel-dot"
+          [class.active]="currentPhotoIndex === i"
+          (click)="currentPhotoIndex = i">
+        </div>
+      </div>
+      <div class="carousel-arrow carousel-prev" (click)="previousPhoto()">&lt;</div>
+      <div class="carousel-arrow carousel-next" (click)="nextPhoto()">&gt;</div>
+    </div>
+
+    <div class="product-info">
+      <div class="title-info">
+        <h1 class="product-title">{{product?.name}}</h1><div class="product-rating">
+        <div class="rating-stars">
+          <span *ngFor="let star of [1,2,3,4,5]"
+                [class.filled]="(product?.rating || defaultRating) >= star">★</span>
+        </div>
+        <span>{{ product?.rating || defaultRating }}</span>
+      </div>
+      </div>
+
+      <div class="weight-buttons-container">
+        <button
+          *ngFor="let prPrice of product?.productPrices"
+          class="weight-button"
+          [ngClass]="{'active': selectedPrice === prPrice}"
+          (click)="selectProductPrice(prPrice)">
+          {{prPrice.weightGrams}} г.
+        </button>
+      </div>
+      <div class="product-price">
+        {{selectedPrice!.price * quantity}} ₴
+        <div class="quantity-control">
+          <button (click)="decrementQuantity()"><span>-</span></button>
+          <input type="text" [value]="quantity" readonly>
+          <button (click)="incrementQuantity()">+</button>
+        </div>
+      </div>
+
+      <div class="product-stock" *ngIf="product?.stock">
+        В наличии: {{product?.stock}} шт.
+      </div>
+
+      <div class="product-actions">
+        <button (click)="addToCart()" class="btn btn-secondary">Добавить в корзину</button>
+        <button class="btn btn-primary">Купить сейчас</button>
+      </div>
+    </div>
+  </div>
+  <div class="product-description" *ngIf="product?.teaDetail">
+    <h3 class="description-title">Про чай</h3>
+
+    <div class="description-section" *ngIf="product?.description">
+      <p>{{product?.description}}</p>
+    </div>
+
+    <div class="description-section" *ngIf="product?.teaDetail?.history">
+      <h4>История</h4>
+      <p>{{product?.teaDetail?.history}}</p>
+    </div>
+
+    <div class="description-section" *ngIf="product?.teaDetail?.origin">
+      <h4>Происхождение</h4>
+      <p>{{product?.teaDetail?.origin}}</p>
+    </div>
+
+    <div class="description-section" *ngIf="product?.teaDetail?.tastingNotes">
+      <h4>Вкусовые заметки</h4>
+      <p>{{product?.teaDetail?.tastingNotes}}</p>
+    </div>
+
+    <div class="description-section" *ngIf="product?.teaDetail?.preparationGuide">
+      <h4>Руководство по приготовлению</h4>
+      <p>{{product?.teaDetail?.preparationGuide}}</p>
+    </div>
+  </div>
+</div>

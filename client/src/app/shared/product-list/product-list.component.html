@@ -1,0 +1,19 @@
+<div class="product-container">
+  <div class="product-card" *ngFor="let product of products" >
+    <div class="product-tumb"[routerLink]="['/product', product.id]">
+      <img
+        [src]="product.photos && product.photos.length > 0 ? product.photos![0].image : 'assets/images/default-image.png'"
+        [alt]="product.description || 'Изображение продукта по умолчанию'"
+      >
+    </div>
+    <div class="product-details">
+      <h4><a [routerLink]="['/product', product.id]">{{product.name}}</a></h4>
+      <div class="product-bottom-details">
+        <div class="product-price">От {{getMinPrice(product.productPrices!)}} ₴</div>
+        <div class="product-links">
+          <a><i class="fa fa-shopping-cart" (click)="addToCart(product)"></i></a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

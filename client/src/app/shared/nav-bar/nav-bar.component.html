@@ -1,0 +1,67 @@
+<div class="nav-bar">
+  <div class="logo-links-container">
+    <div class="logo" routerLink="/home">
+      <img src="assets/Images/logo2.png" alt="TeaShop Logo" class="logo-img">
+      <h1>TeaShop</h1>
+    </div>
+    <ul class="nav-links">
+      <li routerLink="/teas" routerLinkActive="active">Каталог чая</li>
+      <li routerLink="/home" routerLinkActive="active">О нас</li>
+      <li routerLink="/teas" routerLinkActive="active">Акции</li>
+      <li routerLink="/home" routerLinkActive="active">Контакты</li>
+    </ul>
+  </div>
+  <div class="user-actions">
+    <div class="search">
+      <input
+        type="text"
+        placeholder="Search"
+        class="search-input"
+        [(ngModel)]="searchTerm"
+        (input)="onSearchInput($event)"
+      >
+    </div>
+    <div class="cart" [routerLink]="['/cart']" routerLinkActive="active">
+      <i class="fas fa-shopping-cart"></i>
+      <span class="cart-count">{{cartItemsCount || 0}}</span>
+    </div>
+    <div class="dropdown">
+      <div class="user-profile">
+        <img [src]="profile?.image | imgUrl" alt="User Profile" class="profile-img">
+        <span class="user-name">{{ getUserName() }}</span>
+      </div>
+      <div class="dropdown-content">
+        <!-- Показываем только если пользователь авторизован -->
+        <ng-container *ngIf="isLoggedIn">
+          <a routerLink="/profile" routerLinkActive="active">
+            <i class="fas fa-user" [routerLink]="['/profile']"></i> Профиль
+          </a>
+          <a routerLink="/cart" routerLinkActive="active">
+            <i class="fas fa-shopping-bag"></i> Мои заказы
+          </a>
+          <a routerLink="/user/settings" routerLinkActive="active">
+            <i class="fas fa-cog"></i> Настройки
+          </a>
+          <!-- Показываем админ-панель только для админов -->
+          <a *ngIf="hasRole('Admin')" routerLink="/admin" routerLinkActive="active">
+            <i class="fas fa-tools"></i> Админ-панель
+          </a>
+          <div class="dropdown-divider"></div>
+          <a (click)="logout()">
+            <i class="fas fa-sign-out-alt"></i> Выйти
+          </a>
+        </ng-container>
+
+        <!-- Показываем только если пользователь НЕ авторизован -->
+        <ng-container *ngIf="!isLoggedIn">
+          <a [routerLink]="['/user/login']">
+            <i class="fas fa-sign-in-alt"></i> Войти
+          </a>
+          <a [routerLink]="['/user/register']">
+            <i class="fas fa-user-plus"></i> Регистрация
+          </a>
+        </ng-container>
+      </div>
+    </div>
+  </div>
+</div>

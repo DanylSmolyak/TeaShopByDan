@@ -1,0 +1,22 @@
+<body>
+<div class="container" onclick="onclick">
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <div class="top"></div>
+    <div class="bottom"></div>
+    <div class="center">
+      <h2 class="text-white">Please Sign In</h2>
+      <input id="name" formControlName="username" class="form-control" placeholder="Name" required>
+      <input id="email" formControlName="email" class="form-control" placeholder="Email" required>
+      <input id="password" formControlName="password" type="password" class="form-control" placeholder="Password" required>
+      <div class="mb-3">
+      </div>
+
+      <div *ngIf="errorMessage" class="alert alert-danger">{{ errorMessage }}</div>
+
+
+      <button class="w-100 btn" type="submit"><span class="submit-button-text">Submit</span></button>
+      <h2>&nbsp;</h2>
+    </div>
+  </form>
+</div>
+</body>

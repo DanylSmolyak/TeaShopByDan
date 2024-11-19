@@ -1,0 +1,93 @@
+<body>
+<app-nav-bar></app-nav-bar>
+<div class="container">
+  <div class="navigation-panel">
+    <div class="left-section">
+      <div class="dropdown">
+        <button class="dropdown-button" (click)="addFilter('Фильтр 1')">
+          <span>Filters</span>
+          <i class="fas fa-filter"></i>
+        </button>
+        <div class="dropdown-content">
+          <a  (click)="addFilter('Фильтр 1')">Фильтр 1</a>
+          <a  (click)="addFilter('Фильтр 2')">Фильтр 2</a>
+          <a  (click)="addFilter('Фильтр 3')">Фильтр 3</a>
+        </div>
+      </div>
+    </div>
+    <div class="center-section">
+      <div class="selected-filters">
+      <span *ngFor="let filter of selectedFilters" class="filter-tag">
+        {{ filter }}
+        <button class="remove-button" (click)="removeFilter(filter)">&times;</button>
+      </span>
+        <button *ngIf="selectedFilters.length > 0" (click)="clearFilters()">Очистить все</button>
+      </div>
+    </div>
+    <div class="right-section">
+      <div class="dropdown category-dropdown">
+        <button class="dropdown-button">
+          <span>Выбрать категорию</span>
+          <i class="fas fa-chevron-down"></i>
+        </button>
+        <div class="dropdown-content">
+          <a (click)="categorySelect(0)" >Все категории</a>
+          <a (click)="categorySelect(1)" >Зеленый чай</a>
+          <a (click)="categorySelect(2)" >Черный чай</a>
+          <a (click)="categorySelect(3)" >Травяной чай</a>
+        </div>
+      </div>
+      <div class="dropdown">
+        <button class="dropdown-button">
+          <span>Sort</span>
+          <i class="fas fa-sort"></i>
+        </button>
+        <div class="dropdown-content">
+          <a (click)="sortSelected('name')">По названию</a>
+          <a (click)="sortSelected('priceAsc')">По цене (возр)</a>
+          <a (click)="sortSelected('priceDesc')">По цене (убыв)</a>
+          <a (click)="sortSelected('AverageRatingDesc')">Средний рейтинг</a>
+        </div>
+      </div>
+
+      <button class="search-button">
+        <i class="fas fa-search"></i>
+      </button>
+    </div>
+  </div>
+
+
+  <div class="product-container">
+    <div class="product-card" *ngFor="let product of products" >
+      <div class="product-tumb" [routerLink]="['/product', product.id]">
+        <img
+          [src]="product.photos && product.photos.length > 0 ? product.photos![0].image : 'assets/images/default-image.png'"
+          [alt]="product.description || 'Изображение продукта по умолчанию'"
+        >
+      </div>
+      <div class="product-details">
+        <h4><a [routerLink]="['/product', product.id]">{{product.name}}</a></h4>
+        <div class="product-bottom-details">
+          <div class="product-price">От {{getMinPrice(product.productPrices!)}} ₴</div>
+          <div class="product-links">
+            <a><i class="fa fa-shopping-cart" (click)="addToCart(product)"></i></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <mat-paginator
+    [length]="pagination?.totalItems"
+    [pageSize]="shopParams.pageSize"
+    (page)="onPageChange($event)"
+    [showFirstLastButtons]="true"
+    [hidePageSize] = "true"
+    [pageIndex]="shopParams.pageIndex! - 1">
+  </mat-paginator>
+
+
+</div>
+  <app-footer></app-footer>
+</body>>
